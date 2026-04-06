@@ -15,6 +15,7 @@ import { CalendarDaysIcon, MailIcon, ShieldIcon, UserIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { unauthorized } from "next/navigation";
+import WalletDashboard from "./wallet-dashboard";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -37,6 +38,7 @@ export default async function DashboardPage() {
         </div>
         {!user.emailVerified && <EmailVerificationAlert />}
         <ProfileInformation user={user} />
+        <WalletDashboard />
       </div>
     </main>
   );

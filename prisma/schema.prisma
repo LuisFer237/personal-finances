@@ -25,6 +25,9 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
+  wallets       Wallet[]
+  transactions  Transaction[]
+  categories    Category[]
 
   @@unique([email])
   @@map("user")
@@ -73,4 +76,54 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Wallet {
+  id          String   @id @default(cuid())
+  name        String   // Ej: "Efectivo", "Nómina", "Ahorros"
+  balance     Float    @default(0)
+  type        String?   // "CASH", "BANK", "CARD", etc.
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  transactions Transaction[]
+
+  @@map("wallet")
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   // Ej: "Comida", "Transporte", "Sueldo"
+  type      String   // "INCOME" o "EXPENSE"
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  transactions Transaction[]
+
+  @@map("category")
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  amount      Float    // El monto del dinero
+  type        String   // "INCOME" (Ingreso) o "EXPENSE" (Gasto)
+  description String?  // Nota opcional
+  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  walletId    String
+  wallet      Wallet   @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id])
+
+  @@map("transaction")
 }

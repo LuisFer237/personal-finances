@@ -11,8 +11,8 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Better-Auth Tutorial",
-    absolute: "Better-Auth Tutorial by Coding in Flow",
+    template: "%s | Auto Financial",
+    absolute: "Auto Financial - Personal Finance Manager",
   },
   description:
     "Learn how to handle authentication in Next.js using Better-Auth with this tutorial by Coding in Flow",

@@ -26,7 +26,7 @@ export default function Home() {
           />
         </div>
         <h1 className="text-3xl font-semibold sm:text-4xl">
-          Better-Auth Tutorial
+          Auto Financial - Personal Finance Manager
         </h1>
         <p className="text-muted-foreground mt-3 text-base text-balance sm:text-lg">
           Learn how to handle authentication in Next.js using Better-Auth with

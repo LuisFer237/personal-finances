@@ -25,7 +25,7 @@ export async function Navbar() {
             height={32}
             className="border-muted rounded-full border"
           />
-          Better-Auth Tutorial
+          Auto Financial
         </Link>
         <div className="flex items-center gap-2">
           <ModeToggle />

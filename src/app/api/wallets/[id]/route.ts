@@ -18,6 +18,14 @@ export async function PATCH(
         // 2. Obtenemos los datos del cuerpo de la petición
         const { name, type } = await req.json();
 
+        if (name !== undefined && (typeof name !== "string" || !name.trim())) {
+            return NextResponse.json({ error: "Name must be a non-empty string" }, { status: 400 });
+        }
+
+        if (type !== undefined && (typeof type !== "string" || !type.trim())) {
+            return NextResponse.json({ error: "Type must be a non-empty string" }, { status: 400 });
+        }
+
         // 3. Actualizamos en la base de datos
         const updatedWallet = await prisma.wallet.update({
             where: {
@@ -25,8 +33,8 @@ export async function PATCH(
                 userId: session.user.id // Por seguridad, verificamos que sea del usuario
             },
             data: {
-                name,
-                type,
+                ...(name !== undefined && { name: name.trim() }),
+                ...(type !== undefined && { type: type.trim() }),
             },
         });
 

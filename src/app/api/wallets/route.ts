@@ -32,11 +32,15 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Name is required and must be a string" }, { status: 400 });
     }
 
+    if (!type || typeof type !== "string") {
+        return NextResponse.json({ error: "Type is required and must be a string" }, { status: 400 });
+    }
+
     const wallet = await prisma.wallet.create({
         data: {
             name,
             userId: session.user.id,
-            type: type || "other",
+            type: type,
             balance: 0,
         },
     });

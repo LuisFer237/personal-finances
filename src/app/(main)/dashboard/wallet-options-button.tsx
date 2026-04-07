@@ -29,7 +29,7 @@ interface WalletOptionsProps {
   wallet: {
     id: string;
     name: string;
-    type: string | null;
+    type: string;
   };
 }
 

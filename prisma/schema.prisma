@@ -82,7 +82,7 @@ model Wallet {
   id          String   @id @default(cuid())
   name        String   // Ej: "Efectivo", "Nómina", "Ahorros"
   balance     Float    @default(0)
-  type        String?   // "CASH", "BANK", "CARD", etc.
+  type        String   // "CASH", "BANK", "CARD", etc.
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())

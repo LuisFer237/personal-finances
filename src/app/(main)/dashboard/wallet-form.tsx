@@ -22,7 +22,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { toast } from "sonner";
 
 interface WalletFormProps {
-    initialData?: { id: string; name: string; type: string | null };
+    initialData?: { id: string; name: string; type: string };
     onSuccess: () => void;
 }
 
@@ -38,8 +38,20 @@ export default function WalletForm({ initialData, onSuccess }: WalletFormProps) 
         e.preventDefault();
         setLoading(true);
 
-        const trimmed = name.trim();
-        if (!trimmed) return alert("Name is required");
+        const trimmedName = name.trim();
+        const trimmedType = type.trim();
+
+        if (!trimmedName) {
+            toast.error("Name is required");
+            setLoading(false);
+            return;
+        }
+
+        if (!trimmedType) {
+            toast.error("Type is required");
+            setLoading(false);
+            return;
+        }
 
         try {
             const url = isEditing ? `/api/wallets/${initialData.id}` : "/api/wallets";
@@ -48,7 +60,7 @@ export default function WalletForm({ initialData, onSuccess }: WalletFormProps) 
             const res = await fetch(url, {
                 method: method,
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name: trimmed, type }),
+                body: JSON.stringify({ name: trimmedName, type: trimmedType }),
             });
 
             if (!res.ok) {

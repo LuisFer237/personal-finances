@@ -18,6 +18,7 @@ import {
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { UserIcon, CalendarDaysIcon, ShieldIcon } from 'lucide-react'
+import WalletHeader from './components/wallet-header'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -42,31 +43,8 @@ export default async function WalletView({ params }: PageProps) {
     <main className="mx-auto w-full max-w-6xl px-4 py-12">
       <div className="space-y-6">
 
-        {/* Header - Siguiendo el estilo del Dashboard */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="space-y-1">
-            <Link
-              href="/dashboard"
-              className="group flex items-center text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              <ChevronLeft className="mr-1 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-              Back to Dashboard
-            </Link>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-semibold tracking-tight">{wallet.name}</h1>
-              <Badge variant="outline" className="capitalize px-2 py-0">
-                {wallet.type === 'cash' ? '💵 Cash' : '🏦 Bank'}
-              </Badge>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="gap-2">
-              <Settings className="h-4 w-4" />
-              Settings
-            </Button>
-          </div>
-        </div>
+        {/* Header de la Wallet - Similar a ProfileHeader */}
+        <WalletHeader wallet={wallet} />
 
         {/* Grid Principal - 2/3 para el saldo y 1/3 para el resumen */}
         <div className="grid gap-6 lg:grid-cols-3">

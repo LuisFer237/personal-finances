@@ -11,7 +11,7 @@ interface Wallet {
     id: string;
     name: string;
     balance: number;
-    type: string | null;
+    type: string;
     createdAt: Date;
     updatedAt: Date;
 }

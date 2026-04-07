@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "Dashboard",
 };
 
-export default async function DashboardPage() {
+export default async function DashboardPage({ searchParams }: { searchParams: Promise<{ view?: string }> }) {
   const session = await getServerSession();
   const user = session?.user;
 
@@ -38,7 +38,7 @@ export default async function DashboardPage() {
         </div>
         {!user.emailVerified && <EmailVerificationAlert />}
         <ProfileInformation user={user} />
-        <WalletDashboard />
+        <WalletDashboard searchParams={searchParams} />
       </div>
     </main>
   );

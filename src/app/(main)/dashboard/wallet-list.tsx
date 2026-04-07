@@ -1,93 +1,119 @@
-"use client"
+"use client";
 import React from 'react'
-import { useState, useEffect } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardTitle, CardHeader } from '@/components/ui/card';
 import { BsCash } from "react-icons/bs";
 import { FaRegCreditCard } from "react-icons/fa";
 import Link from 'next/link';
+import { WalletOptionsButton } from './wallet-options-button';
+import { motion, AnimatePresence } from "framer-motion";
 
-interface Wallet{
+interface Wallet {
     id: string;
     name: string;
     balance: number;
-    type: string;
-    createdAt: string;
-    updatedAt: string;
+    type: string | null;
+    createdAt: Date;
+    updatedAt: Date;
 }
 
-const WalletList = () => {
-    const [wallets, setWallets] = useState<Wallet[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+interface WalletListProps {
+    wallets: Wallet[];
+    display?: "grid" | "list" | null;
+}
 
-    useEffect(() => {
-        async function loadWallets() {
-            setLoading(true);
-            try {
-                const res = await fetch("/api/wallets");
-                if (!res.ok) throw new Error("Failed to fetch wallets");
-                const data = await res.json();
-                setWallets(data);
-            }catch (error) {
-                setError(error instanceof Error ? error.message : "An unknown error occurred");
-            } finally {
-                setLoading(false);
-            }
-        }
-        loadWallets();
-    }, []);
+const WalletList = ({ wallets, display }: WalletListProps) => {
 
-    if (loading) {
+    if (wallets.length === 0) {
         return (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                <Skeleton className="h-[120px] w-full" />
-                <Skeleton className="h-[120px] w-full" />
-            </div>
+            <Card>
+                <CardContent className='text-center py-10'>
+                    <CardTitle className='mb-2'>No wallets found</CardTitle>
+                    <p className='text-sm text-muted-foreground'>Start by creating your first wallet to manage your finances.</p>
+                </CardContent>
+            </Card>
         );
     }
 
-    if (error) return <p className="text-red-500">{error}</p>;
+    const isList = display === "list";
 
-    if (wallets.length === 0) {
-        return <p className="text-muted-foreground text-sm italic">No tienes carteras creadas aún.</p>;
-    }
+    const containerClass = isList
+        ? "flex flex-col gap-2"
+        : "grid gap-4 md:grid-cols-2 lg:grid-cols-3";
 
     return (
-        <div>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {wallets.map((wallet) => (
-            // Envolvemos la Card con el Link
-            <Link key={wallet.id} href={`/wallet/${wallet.id}`}>
-                <Card className="hover:border-primary transition-all hover:shadow-md cursor-pointer group">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                    {wallet.name}
-                    </CardTitle>
-                    <span className="text-muted-foreground group-hover:text-primary transition-colors">
-                    {wallet.type === "cash" ? (
-                        <BsCash size={20} />
-                    ) : wallet.type === "bank" ? (
-                        <FaRegCreditCard size={20} />
-                    ) : (
-                        "None"
-                    )}
-                    </span>
-                </CardHeader>
-                <CardContent>
-                    <div className="text-2xl font-bold">
-                    ${wallet.balance.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                    Saldo disponible • <span className="capitalize">{wallet.type}</span>
-                    </p>
-                </CardContent>
-                </Card>
-            </Link>
-            ))}
-        </div>
-        </div>
+        <AnimatePresence mode="wait">
+            <motion.div
+                key={display}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                className={containerClass}
+            >
+                {wallets.map((wallet) => (
+                    <Link key={wallet.id} href={`/wallet/${wallet.id}`}>
+                        <Card className={`hover:border-primary transition-all hover:shadow-md cursor-pointer group ${isList ? "py-3 px-4" : ""}`}>
+
+                            <div className={isList ? "flex items-center w-full gap-4" : ""}>
+
+                                {/* BLOQUE ICONO: shrink-0 para que no se aplaste */}
+                                {isList && (
+                                    <div className="p-2 bg-muted rounded-full text-muted-foreground group-hover:text-primary transition-colors shrink-0">
+                                        {wallet.type === "cash" ? <BsCash size={16} /> : <FaRegCreditCard size={16} />}
+                                    </div>
+                                )}
+
+                                {/* BLOQUE TEXTO: flex-grow para que tome todo el espacio del medio */}
+                                <div className={isList ? "flex-grow min-w-0" : ""}>
+                                    <CardHeader className={`${isList ? "p-0 space-y-0" : "flex flex-row items-center justify-between space-y-0 pb-2"}`}>
+                                        <CardTitle className={`${isList ? "text-base" : "text-md"} font-medium truncate`}>
+                                            {wallet.name}
+                                        </CardTitle>
+
+                                        {!isList && (
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-muted-foreground group-hover:text-primary transition-colors">
+                                                    {wallet.type === "cash" ? <BsCash size={20} /> : <FaRegCreditCard size={20} />}
+                                                </span>
+                                                <WalletOptionsButton wallet={wallet} />
+                                            </div>
+                                        )}
+                                    </CardHeader>
+
+                                    {isList && (
+                                        <p className="text-[10px] text-muted-foreground uppercase tracking-wider truncate">
+                                            {wallet.type}
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* BLOQUE DERECHO: Balance y Opciones */}
+                                <CardContent className={`${isList ? "p-0 flex items-center gap-4 shrink-0" : ""}`}>
+                                    <div className={isList ? "text-right" : "flex flex-col justify-between"}>
+                                        <div className={`${isList ? "text-lg" : "text-2xl"} font-bold whitespace-nowrap`}>
+                                            ${wallet.balance.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
+                                        </div>
+
+                                        {!isList && (
+                                            <p className="text-xs text-muted-foreground">
+                                                Available balance • <span className="capitalize">{wallet.type}</span>
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {isList && (
+                                        <div onClick={(e) => e.preventDefault()} className="shrink-0">
+                                            <WalletOptionsButton wallet={wallet} />
+                                        </div>
+                                    )}
+                                </CardContent>
+                            </div>
+                        </Card>
+                    </Link>
+                ))}
+            </motion.div>
+        </AnimatePresence>
     );
 }
 
-export default WalletList
+export default WalletList;

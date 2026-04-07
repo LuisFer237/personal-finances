@@ -43,3 +43,30 @@ export async function POST(req: Request) {
 
     return NextResponse.json(wallet);
 }
+
+export async function DELETE(req: Request) {
+    const session = await getServerSession();
+    if (!session?.user?.id){
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await req.json();
+
+    if (!id){
+        return NextResponse.json({ error: "Wallet ID is required" }, { status: 400 });
+    }
+
+    const wallet = await prisma.wallet.findUnique({
+        where: { id },
+    });
+
+    if (!wallet){
+        return NextResponse.json({ error: "Wallet not found" }, { status: 404 });
+    }
+
+    await prisma.wallet.delete({
+        where: { id },
+    });
+
+    return NextResponse.json({ message: "Wallet deleted successfully" });
+}

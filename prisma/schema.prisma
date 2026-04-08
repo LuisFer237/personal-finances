@@ -95,13 +95,12 @@ model Wallet {
 
 model Category {
   id        String   @id @default(cuid())
-  name      String   // Ej: "Comida", "Transporte", "Sueldo"
-  type      String   // "INCOME" o "EXPENSE"
+  name      String   
+  description String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
   transactions Transaction[]
 
   @@map("category")

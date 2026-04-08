@@ -3,12 +3,10 @@ import Link from 'next/link'
 import { ChevronLeft, Settings } from 'lucide-react'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Wallet } from "@/generated/prisma";
 
 interface WalletHeaderProps {
-    wallet: {
-        name: string;
-        type: string;
-    }
+    wallet: Wallet;
 }
 
 const WalletHeader = ({ wallet }: WalletHeaderProps) => {

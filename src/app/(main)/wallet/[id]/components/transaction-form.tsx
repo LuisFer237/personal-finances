@@ -28,7 +28,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import CategoryForm from './category-form';
 import { Plus } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/animate-ui/components/radix/dialog';
 
 // 1. Definimos el esquema. 
 // Usamos .or(z.string()) para que acepte lo que viene del input antes de la coerción
@@ -45,32 +45,47 @@ const TransactionFormSchema = z.object({
 type TransactionFormInput = z.input<typeof TransactionFormSchema>;
 type TransactionFormData = z.output<typeof TransactionFormSchema>;
 
+interface TransactionWithCategory {
+    id: string;
+    amount: number;
+    type: "INCOME" | "EXPENSE";
+    description: string | null;
+    categoryId: string;
+    date: Date;
+    category: {
+        name: string;
+    }
+}
+
 interface TransactionFormProps {
     walletId: string;
     categories: { id: string; name: string; description: string | null }[];
     onSuccess?: () => void;
     initialType?: "INCOME" | "EXPENSE";
+    initialData?: TransactionWithCategory | null;
 }
 
 const TransactionForm = ({
     walletId,
     categories,
     onSuccess,
-    initialType = "EXPENSE"
+    initialType = "EXPENSE",
+    initialData = null
 }: TransactionFormProps) => {
     const [localCategories, setLocalCategories] = useState(categories);
     const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
     const router = useRouter();
+    const isEditing = !!initialData;
 
     // Input y output separados para soportar transformaciones de Zod (amount)
     const form = useForm<TransactionFormInput, any, TransactionFormData>({
         resolver: zodResolver(TransactionFormSchema),
         defaultValues: {
-            amount: 0,
-            type: initialType,
-            description: "",
-            categoryId: "",
-            date: new Date().toISOString(),
+            amount: initialData?.amount || 0,
+            type: (initialData?.type as "INCOME" | "EXPENSE") || initialType,
+            description: initialData?.description || "",
+            categoryId: initialData?.categoryId || "",
+            date: initialData?.date ? new Date(initialData.date).toISOString() : new Date().toISOString(),
         },
     });
 
@@ -79,16 +94,22 @@ const TransactionForm = ({
 
     const onSubmit: SubmitHandler<TransactionFormData> = async (data) => {
         try {
-            const response = await fetch("/api/transactions", {
-                method: "POST",
+            const url = isEditing
+                ? `/api/transactions/${initialData?.id}`
+                : "/api/transactions";
+
+            const method = isEditing ? "PATCH" : "POST";
+
+            const response = await fetch(url, {
+                method: method,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ ...data, walletId }),
             });
 
             if (!response.ok) throw new Error("Failed to create transaction");
 
-            toast.success("Transaction recorded!");
-            form.reset();
+            toast.success(isEditing ? "Transaction updated!" : "Transaction recorded!");
+            if (!isEditing) form.reset();
             router.refresh();
             if (onSuccess) onSuccess();
         } catch (error: any) {
@@ -205,7 +226,9 @@ const TransactionForm = ({
                 />
 
                 <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-                    {form.formState.isSubmitting ? "Saving..." : "Save Transaction"}
+                    {form.formState.isSubmitting
+                        ? "Saving..."
+                        : (isEditing ? "Update Transaction" : "Save Transaction")}
                 </Button>
             </form>
         </Form>

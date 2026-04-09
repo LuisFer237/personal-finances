@@ -8,7 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/animate-ui/components/radix/dialog";
 import { Button } from "@/components/ui/button";
 import WalletForm from "./wallet-form"; // Asegúrate de que la ruta sea correcta
 

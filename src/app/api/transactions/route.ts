@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "../../../lib/get-session";
-import prisma from "../../../lib/prisma";
+import { getServerSession } from "@/lib/get-session";
+import prisma from "@/lib/prisma";
 
 export async function GET(request: Request) {
     const session = await getServerSession();
@@ -72,3 +72,4 @@ export async function POST(request: Request) {
     }
 
 }
+

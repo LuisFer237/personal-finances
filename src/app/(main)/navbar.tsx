@@ -18,13 +18,13 @@ export async function Navbar() {
           href="/dashboard"
           className="flex items-center gap-2 font-semibold"
         >
-          <Image
+          {/* <Image
             src={codingInFlowLogo}
             alt="Coding in Flow logo"
             width={32}
             height={32}
             className="border-muted rounded-full border"
-          />
+          /> */}
           Auto Financial
         </Link>
         <div className="flex items-center gap-2">

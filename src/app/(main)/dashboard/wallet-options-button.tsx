@@ -19,7 +19,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/components/animate-ui/components/radix/dialog";
 import WalletForm from "./wallet-form";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";

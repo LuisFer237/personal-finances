@@ -37,7 +37,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
           ) : (
             <UserIcon />
           )}
-          <span className="max-w-[12rem] truncate">{user.name}</span>
+          <span className="max-w-[12rem] truncate hidden sm:block">{user.name}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">

@@ -6,12 +6,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { History, UserIcon, CalendarDaysIcon, ShieldIcon } from 'lucide-react'
 import { format, startOfMonth } from 'date-fns'
 import { getServerSession } from "@/lib/get-session"
-
-// Componentes
+import TransactionHistory, { TransactionWithCategory } from './components/transaction-history'
 import WalletHeader from './components/wallet-header'
 import BalanceCard from './components/balance-card'
 import StatsCards from './components/stats-card'
-import TransactionHistory from './components/transaction-history'
 
 interface PageProps {
   params: Promise<{ id: string }>
@@ -74,13 +72,13 @@ export default async function WalletView({ params }: PageProps) {
 
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-12" >
+    <main className="mx-auto w-full max-w-6xl px-4 py-8" >
       <div className="space-y-6">
 
         <WalletHeader wallet={wallet} />
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          <BalanceCard wallet={wallet} categories={categories} lastTransactionDate={lastTransactionDate} />
+        <div className="grid gap-6 lg:grid-cols-3 items-stretch">
+          <BalanceCard wallet={wallet} categories={categories} lastTransactionDate={lastTransactionDate} userName={session.user.name} />
 
           {/* Ahora pasamos los montos reales calculados */}
           <StatsCards
@@ -102,7 +100,11 @@ export default async function WalletView({ params }: PageProps) {
           </TabsList>
 
           <TabsContent value="history">
-            <TransactionHistory transactions={transactions} />
+            <TransactionHistory
+              transactions={transactions as unknown as TransactionWithCategory[]}
+              walletId={wallet.id}
+              categories={categories}
+            />
           </TabsContent>
 
           <TabsContent value="details">

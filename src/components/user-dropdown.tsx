@@ -2,6 +2,7 @@
 
 import { User } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
+import { t } from "@/lib/i18n-extract";
 import { LogOutIcon, ShieldIcon, UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,7 +46,7 @@ export function UserDropdown({ user }: UserDropdownProps) {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/profile">
-            <UserIcon className="size-4" /> <span>Profile</span>
+            <UserIcon className="size-4" /> <span>{t("userDropdown.profile", "Profile")}</span>
           </Link>
         </DropdownMenuItem>
         {user.role === "admin" && <AdminItem />}
@@ -59,7 +60,7 @@ function AdminItem() {
   return (
     <DropdownMenuItem asChild>
       <Link href="/admin">
-        <ShieldIcon className="size-4" /> <span>Admin</span>
+        <ShieldIcon className="size-4" /> <span>{t("userDropdown.admin", "Admin")}</span>
       </Link>
     </DropdownMenuItem>
   );
@@ -71,16 +72,16 @@ function SignOutItem() {
   async function handleSignOut() {
     const { error } = await authClient.signOut();
     if (error) {
-      toast.error(error.message || "Something went wrong");
+      toast.error(error.message || t("common.somethingWentWrong", "Something went wrong"));
     } else {
-      toast.success("Signed out successfully");
+      toast.success(t("userDropdown.signedOut", "Signed out successfully"));
       router.push("/sign-in");
     }
   }
 
   return (
     <DropdownMenuItem onClick={handleSignOut}>
-      <LogOutIcon className="size-4" /> <span>Sign out</span>
+      <LogOutIcon className="size-4" /> <span>{t("userDropdown.signOut", "Sign out")}</span>
     </DropdownMenuItem>
   );
 }

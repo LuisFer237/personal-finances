@@ -1,0 +1,271 @@
+{
+  "validation": {
+    "validEmail": "Por favor ingresa un correo válido",
+    "passwordRequired": "La contraseña es obligatoria",
+    "nameRequired": "El nombre es obligatorio",
+    "confirmPassword": "Por favor confirma la contraseña",
+    "passwordsMismatch": "Las contraseñas no coinciden",
+    "validEmailShort": "Ingresa un correo válido",
+    "currentPasswordRequired": "La contraseña actual es obligatoria",
+    "tooLong": "Demasiado largo",
+    "maxChars100": "Máximo 100 caracteres"
+  },
+  "common": {
+    "somethingWentWrong": "Algo salió mal",
+    "email": "Correo",
+    "emailPlaceholder": "tu@correo.com",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "type": "Tipo",
+    "saving": "Guardando...",
+    "actions": "Acciones",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "deleting": "Eliminando...",
+    "creating": "Creando...",
+    "required": "Obligatorio",
+    "savingLabel": "Ahorro"
+  },
+  "forgotPassword": {
+    "success": "Si existe una cuenta con este correo, enviamos un enlace para restablecer la contraseña.",
+    "sendLink": "Enviar enlace de recuperación",
+    "metaTitle": "Olvidé mi contraseña",
+    "title": "Olvidé mi contraseña",
+    "description": "Ingresa tu correo y te enviaremos un enlace para restablecer tu contraseña."
+  },
+  "resetPassword": {
+    "metaTitle": "Restablecer contraseña",
+    "tokenMissing": "Falta el token.",
+    "title": "Restablecer contraseña",
+    "description": "Ingresa tu nueva contraseña.",
+    "success": "La contraseña se restableció correctamente. Ahora puedes iniciar sesión.",
+    "newPassword": "Nueva contraseña",
+    "newPasswordPlaceholder": "Ingresa la nueva contraseña",
+    "submit": "Restablecer contraseña"
+  },
+  "signIn": {
+    "metaTitle": "Iniciar sesión",
+    "success": "Sesión iniciada correctamente",
+    "title": "Iniciar sesión",
+    "description": "Ingresa tu correo para iniciar sesión en tu cuenta",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "rememberMe": "Recuérdame",
+    "login": "Entrar",
+    "google": "Iniciar sesión con Google",
+    "noAccount": "¿No tienes una cuenta?",
+    "signUp": "Regístrate"
+  },
+  "signUp": {
+    "metaTitle": "Registrarse",
+    "success": "Registro exitoso",
+    "title": "Crear cuenta",
+    "description": "Ingresa tu información para crear una cuenta",
+    "namePlaceholder": "Juan Pérez",
+    "confirmPassword": "Confirmar contraseña",
+    "confirmPasswordPlaceholder": "Confirma la contraseña",
+    "createAccount": "Crear cuenta",
+    "haveAccount": "¿Ya tienes una cuenta?",
+    "signIn": "Inicia sesión"
+  },
+  "admin": {
+    "delete": {
+      "success": "El borrado de la aplicación fue autorizado correctamente",
+      "title": "Eliminar aplicación",
+      "description": "Esta acción eliminará toda la aplicación. No se puede deshacer.",
+      "button": "Eliminar aplicación"
+    },
+    "metaTitle": "Administración",
+    "title": "Administración",
+    "description": "Tienes acceso de administrador."
+  },
+  "wallet": {
+    "create": "Crear billetera",
+    "createDescription": "Completa los siguientes datos para agregar una nueva cuenta o billetera.",
+    "overview": "Resumen de billeteras",
+    "validation": {
+      "nameRequired": "El nombre es obligatorio",
+      "typeRequired": "El tipo es obligatorio",
+      "failedRequest": "No se pudo procesar la solicitud"
+    },
+    "updated": "¡Billetera actualizada!",
+    "created": "¡Billetera creada!",
+    "namePlaceholder": "Ej: Mis ahorros",
+    "selectType": "Selecciona un tipo",
+    "cash": "Efectivo",
+    "bank": "Banco",
+    "update": "Actualizar billetera",
+    "emptyTitle": "No se encontraron billeteras",
+    "emptyDescription": "Comienza creando tu primera billetera para gestionar tus finanzas.",
+    "availableBalance": "Saldo disponible",
+    "deleteFailed": "No se pudo eliminar la billetera",
+    "deleted": "¡Billetera eliminada!",
+    "deleteError": "Ocurrió un error al eliminar la billetera",
+    "edit": "Editar billetera",
+    "confirmDeleteTitle": "¿Estás completamente seguro?",
+    "confirmDeleteDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente tu billetera",
+    "confirmDeleteDescriptionTail": "y todos los datos asociados.",
+    "confirmDelete": "Sí, eliminar billetera",
+    "premium": "Premium",
+    "currentBalance": "Saldo actual",
+    "currency": "MXN",
+    "cardHolder": "Titular",
+    "guestUser": "Usuario invitado",
+    "validThru": "Válido hasta",
+    "income": "Ingreso",
+    "expense": "Gasto",
+    "registerTransaction": "Registrar transacción",
+    "category": {
+      "createFailed": "No se pudo crear la categoría",
+      "added": "Categoría agregada",
+      "name": "Nombre de la categoría",
+      "namePlaceholder": "Renta, Comida, Salario...",
+      "descriptionOptional": "Descripción (opcional)",
+      "descriptionPlaceholder": "Agrega más detalles sobre esta categoría...",
+      "save": "Guardar categoría",
+      "create": "Crear categoría"
+    },
+    "quickSummary": "Resumen rápido",
+    "totalMovements": "Movimientos totales",
+    "monthlyIncome": "Ingresos mensuales",
+    "monthlyExpenses": "Gastos mensuales",
+    "transaction": {
+      "amountPositive": "El monto debe ser positivo",
+      "failed": "No se pudo crear la transacción",
+      "updated": "¡Transacción actualizada!",
+      "recorded": "¡Transacción registrada!",
+      "amount": "Monto",
+      "amountPlaceholder": "0.00",
+      "category": "Categoría",
+      "newCategory": "Nueva categoría",
+      "selectCategory": "Selecciona una categoría",
+      "descriptionOptional": "Descripción (opcional)",
+      "descriptionPlaceholder": "¿Para qué fue esto?",
+      "update": "Actualizar transacción",
+      "save": "Guardar transacción",
+      "deleting": "Eliminando transacción...",
+      "deleteFailed": "No se pudo eliminar la transacción",
+      "deleteSuccess": "Transacción eliminada correctamente",
+      "emptyTitle": "Aún no hay transacciones",
+      "emptyDescription": "Tus movimientos recientes aparecerán aquí.",
+      "edit": "Editar transacción",
+      "deleteTitle": "Eliminar transacción",
+      "deleteQuestion": "¿Seguro que quieres eliminar esta transacción?",
+      "deleteWarning": "Esta acción no se puede deshacer. El saldo de tu billetera se actualizará automáticamente."
+    },
+    "backToDashboard": "Volver al panel",
+    "cashWithIcon": "💵 Efectivo",
+    "bankWithIcon": "🏦 Banco",
+    "history": "Historial",
+    "technicalDetails": "Detalles técnicos",
+    "metadata": "Metadatos",
+    "metadataDescription": "Información técnica sobre esta billetera",
+    "createdOn": "Creado el",
+    "uniqueIdentifier": "Identificador único"
+  },
+  "dashboard": {
+    "metaTitle": "Panel",
+    "title": "Panel",
+    "welcome": "¡Bienvenido de nuevo! Aquí tienes el resumen de tu cuenta.",
+    "profileInfo": "Información del perfil",
+    "profileInfoDescription": "Detalles de tu cuenta y estado actual",
+    "memberSince": "Miembro desde",
+    "verifyEmailAlert": "Verifica tu correo para acceder a todas las funciones.",
+    "verifyEmail": "Verificar correo"
+  },
+  "emailVerified": {
+    "metaTitle": "Correo verificado",
+    "title": "Correo verificado",
+    "description": "Tu correo se verificó correctamente.",
+    "goDashboard": "Ir al panel"
+  },
+  "navbar": {
+    "brand": "Auto Financial"
+  },
+  "profile": {
+    "email": {
+      "failed": "No se pudo iniciar el cambio de correo",
+      "success": "Se envió un correo de verificación a tu dirección actual",
+      "title": "Cambiar correo",
+      "newEmail": "Nuevo correo",
+      "placeholder": "nuevo@correo.com",
+      "submit": "Solicitar cambio"
+    },
+    "logoutEverywhere": {
+      "failed": "No se pudo cerrar sesión en todos los dispositivos",
+      "success": "Sesión cerrada en todos los dispositivos",
+      "button": "Cerrar sesión en todos lados"
+    },
+    "metaTitle": "Perfil",
+    "title": "Perfil",
+    "description": "Actualiza los datos de tu cuenta, correo y contraseña.",
+    "password": {
+      "failed": "No se pudo cambiar la contraseña",
+      "success": "Contraseña cambiada",
+      "title": "Cambiar contraseña",
+      "current": "Contraseña actual",
+      "currentPlaceholder": "Contraseña actual",
+      "new": "Nueva contraseña",
+      "newPlaceholder": "Nueva contraseña",
+      "submit": "Cambiar contraseña"
+    },
+    "details": {
+      "failed": "No se pudo actualizar el perfil",
+      "success": "Perfil actualizado",
+      "title": "Detalles del perfil",
+      "fullName": "Nombre completo",
+      "profileImage": "Imagen de perfil",
+      "removeImage": "Quitar imagen",
+      "submit": "Guardar cambios"
+    }
+  },
+  "verifyEmail": {
+    "metaTitle": "Verificar correo",
+    "title": "Verifica tu correo",
+    "description": "Se envió un correo de verificación a tu bandeja de entrada.",
+    "resendSuccess": "Correo de verificación enviado correctamente",
+    "resendButton": "Reenviar correo de verificación"
+  },
+  "forbidden": {
+    "title": "403 - Prohibido",
+    "description": "No tienes acceso a esta página.",
+    "goDashboard": "Ir al panel"
+  },
+  "metadata": {
+    "title": {
+      "template": "%s | Auto Financial",
+      "absolute": "Auto Financial - Gestor de finanzas personales"
+    },
+    "description": "Administra tus finanzas personales con facilidad."
+  },
+  "home": {
+    "codingInFlowLogoAlt": "Logo de Coding in Flow",
+    "betterAuthLogoAlt": "Logo de Better Auth",
+    "title": "Auto Financial - Gestor de finanzas personales",
+    "description": "Aprende a manejar autenticación en Next.js usando Better-Auth con este tutorial de",
+    "codingInFlow": "Coding in Flow",
+    "goDashboard": "Ir al panel",
+    "signIn": "Iniciar sesión"
+  },
+  "unauthorized": {
+    "title": "401 - No autorizado",
+    "description": "Inicia sesión para continuar.",
+    "signIn": "Iniciar sesión"
+  },
+  "modeToggle": {
+    "toggleTheme": "Cambiar tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "passwordInput": {
+    "hide": "Ocultar contraseña",
+    "show": "Mostrar contraseña"
+  },
+  "userDropdown": {
+    "profile": "Perfil",
+    "admin": "Administración",
+    "signedOut": "Sesión cerrada correctamente",
+    "signOut": "Cerrar sesión"
+  }
+}

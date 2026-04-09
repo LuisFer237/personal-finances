@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import { t } from "@/lib/i18n-extract";
 import { cn } from "@/lib/utils";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { useState } from "react";
@@ -19,7 +20,11 @@ export function PasswordInput({
       <button
         type="button"
         onClick={() => setShowPassword(!showPassword)}
-        title={showPassword ? "Hide password" : "Show password"}
+        title={
+          showPassword
+            ? t("passwordInput.hide", "Hide password")
+            : t("passwordInput.show", "Show password")
+        }
         className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 transform"
       >
         {showPassword ? (

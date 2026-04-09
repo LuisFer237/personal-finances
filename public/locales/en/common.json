@@ -1,0 +1,270 @@
+{
+  "validation": {
+    "validEmail": "Please enter a valid email",
+    "passwordRequired": "Password is required",
+    "nameRequired": "Name is required",
+    "confirmPassword": "Please confirm password",
+    "passwordsMismatch": "Passwords do not match",
+    "validEmailShort": "Enter a valid email",
+    "currentPasswordRequired": "Current password is required",
+    "tooLong": "Too long",
+    "maxChars100": "Maximum 100 characters"
+  },
+  "common": {
+    "somethingWentWrong": "Something went wrong",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "password": "Password",
+    "name": "Name",
+    "type": "Type",
+    "saving": "Saving...",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "deleting": "Deleting...",
+    "creating": "Creating...",
+    "required": "Required"
+  },
+  "forgotPassword": {
+    "success": "If an account exists for this email, we've sent a password reset link.",
+    "sendLink": "Send reset link",
+    "metaTitle": "Forgot password",
+    "title": "Forgot password",
+    "description": "Enter your email address and we'll send you a link to reset your password."
+  },
+  "resetPassword": {
+    "metaTitle": "Reset password",
+    "tokenMissing": "Token is missing.",
+    "title": "Reset password",
+    "description": "Enter your new password below.",
+    "success": "Password has been reset. You can now sign in.",
+    "newPassword": "New password",
+    "newPasswordPlaceholder": "Enter new password",
+    "submit": "Reset password"
+  },
+  "signIn": {
+    "metaTitle": "Sign in",
+    "success": "Signed in successfully",
+    "title": "Sign In",
+    "description": "Enter your email below to login to your account",
+    "forgotPassword": "Forgot your password?",
+    "rememberMe": "Remember me",
+    "login": "Login",
+    "signInWithGoogle": "Sign in with Google",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up"
+  },
+  "signUp": {
+    "metaTitle": "Sign up",
+    "success": "Signed up successfully",
+    "title": "Sign Up",
+    "description": "Enter your information to create an account",
+    "namePlaceholder": "John Doe",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm password",
+    "createAccount": "Create an account",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign in"
+  },
+  "admin": {
+    "delete": {
+      "success": "Application deletion authorized successfully",
+      "title": "Delete Application",
+      "description": "This action will delete the entire application. This cannot be undone.",
+      "button": "Delete Application"
+    },
+    "metaTitle": "Admin",
+    "title": "Admin",
+    "description": "You have administrator access."
+  },
+  "wallet": {
+    "create": "Create Wallet",
+    "createDescription": "Fill in the details below to add a new account or wallet.",
+    "overview": "Wallet Overview",
+    "validation": {
+      "nameRequired": "Name is required",
+      "typeRequired": "Type is required",
+      "failedRequest": "Failed to process request"
+    },
+    "updated": "Wallet updated!",
+    "created": "Wallet created!",
+    "namePlaceholder": "Ej: My Savings",
+    "selectType": "Select a type",
+    "cash": "Cash",
+    "bank": "Bank",
+    "update": "Update Wallet",
+    "emptyTitle": "No wallets found",
+    "emptyDescription": "Start by creating your first wallet to manage your finances.",
+    "availableBalance": "Available balance",
+    "deleteFailed": "Failed to delete wallet",
+    "deleted": "Wallet deleted!",
+    "deleteError": "An error occurred while deleting the wallet",
+    "edit": "Edit Wallet",
+    "confirmDeleteTitle": "Are you absolutely sure?",
+    "confirmDeleteDescription": "This action cannot be undone. This will permanently delete your wallet",
+    "confirmDeleteDescriptionTail": "and all associated data.",
+    "confirmDelete": "Yes, delete wallet",
+    "premium": "Premium",
+    "currentBalance": "Current Balance",
+    "currency": "MXN",
+    "cardHolder": "Card Holder",
+    "guestUser": "Guest User",
+    "validThru": "Valid Thru",
+    "income": "Income",
+    "expense": "Expense",
+    "registerTransaction": "Register Transaction",
+    "category": {
+      "createFailed": "Failed to create category",
+      "added": "Category added!",
+      "name": "Category Name",
+      "namePlaceholder": "Rent, Food, Salary...",
+      "descriptionOptional": "Description (Optional)",
+      "descriptionPlaceholder": "Add more details about this category...",
+      "save": "Save Category",
+      "create": "Create Category"
+    },
+    "quickSummary": "Quick Summary",
+    "totalMovements": "Total Movements",
+    "monthlyIncome": "Monthly Income",
+    "monthlyExpenses": "Monthly Expenses",
+    "transaction": {
+      "amountPositive": "The amount must be positive",
+      "failed": "Failed to create transaction",
+      "updated": "Transaction updated!",
+      "recorded": "Transaction recorded!",
+      "amount": "Amount",
+      "amountPlaceholder": "0.00",
+      "category": "Category",
+      "newCategory": "New Category",
+      "selectCategory": "Select a category",
+      "descriptionOptional": "Description (Optional)",
+      "descriptionPlaceholder": "What was this for?",
+      "update": "Update Transaction",
+      "save": "Save Transaction",
+      "deleting": "Deleting transaction...",
+      "deleteFailed": "Failed to delete transaction",
+      "deleteSuccess": "Transaction deleted successfully",
+      "emptyTitle": "No transactions yet",
+      "emptyDescription": "Your recent movements will appear here.",
+      "edit": "Edit Transaction",
+      "deleteTitle": "Delete Transaction",
+      "deleteQuestion": "Are you sure you want to delete this transaction?",
+      "deleteWarning": "This action cannot be undone. Your wallet balance will be updated automatically."
+    },
+    "backToDashboard": "Back to Dashboard",
+    "cashWithIcon": "💵 Cash",
+    "bankWithIcon": "🏦 Bank",
+    "history": "History",
+    "technicalDetails": "Technical Details",
+    "metadata": "Metadata",
+    "metadataDescription": "Technical information about this wallet",
+    "createdOn": "Created on",
+    "uniqueIdentifier": "Unique Identifier"
+  },
+  "dashboard": {
+    "metaTitle": "Dashboard",
+    "title": "Dashboard",
+    "welcome": "Welcome back! Here's your account overview.",
+    "profileInfo": "Profile Information",
+    "profileInfoDescription": "Your account details and current status",
+    "memberSince": "Member Since",
+    "verifyEmailAlert": "Please verify your email address to access all features.",
+    "verifyEmail": "Verify Email"
+  },
+  "emailVerified": {
+    "metaTitle": "Email Verified",
+    "title": "Email verified",
+    "description": "Your email has been verified successfully.",
+    "goDashboard": "Go to dashboard"
+  },
+  "navbar": {
+    "brand": "Auto Financial"
+  },
+  "profile": {
+    "email": {
+      "failed": "Failed to initiate email change",
+      "success": "Verification email sent to your current address",
+      "title": "Change Email",
+      "newEmail": "New Email",
+      "placeholder": "new@email.com",
+      "submit": "Request change"
+    },
+    "logoutEverywhere": {
+      "failed": "Failed to log out everywhere",
+      "success": "Logged out from all devices",
+      "button": "Log out everywhere"
+    },
+    "metaTitle": "Profile",
+    "title": "Profile",
+    "description": "Update your account details, email, and password.",
+    "password": {
+      "failed": "Failed to change password",
+      "success": "Password changed",
+      "title": "Change Password",
+      "current": "Current Password",
+      "currentPlaceholder": "Current password",
+      "new": "New Password",
+      "newPlaceholder": "New password",
+      "submit": "Change password"
+    },
+    "details": {
+      "failed": "Failed to update profile",
+      "success": "Profile updated",
+      "title": "Profile Details",
+      "fullName": "Full name",
+      "profileImage": "Profile image",
+      "removeImage": "Remove image",
+      "submit": "Save changes"
+    }
+  },
+  "verifyEmail": {
+    "metaTitle": "Verify Email",
+    "title": "Verify your email",
+    "description": "A verification email was sent to your inbox.",
+    "resendSuccess": "Verification email sent successfully",
+    "resendButton": "Resend verification email"
+  },
+  "forbidden": {
+    "title": "403 - Forbidden",
+    "description": "You don't have access to this page.",
+    "goDashboard": "Go to Dashboard"
+  },
+  "metadata": {
+    "title": {
+      "template": "%s | Auto Financial",
+      "absolute": "Auto Financial - Personal Finance Manager"
+    },
+    "description": "Manage your personal finances with ease."
+  },
+  "home": {
+    "codingInFlowLogoAlt": "Coding in Flow logo",
+    "betterAuthLogoAlt": "Better Auth logo",
+    "title": "Auto Financial - Personal Finance Manager",
+    "description": "Learn how to handle authentication in Next.js using Better-Auth with this tutorial by",
+    "codingInFlow": "Coding in Flow",
+    "goDashboard": "Go to Dashboard",
+    "signIn": "Sign In"
+  },
+  "unauthorized": {
+    "title": "401 - Unauthorized",
+    "description": "Please sign in to continue.",
+    "signIn": "Sign in"
+  },
+  "modeToggle": {
+    "toggleTheme": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "passwordInput": {
+    "hide": "Hide password",
+    "show": "Show password"
+  },
+  "userDropdown": {
+    "profile": "Profile",
+    "admin": "Admin",
+    "signedOut": "Signed out successfully",
+    "signOut": "Sign out"
+  }
+}

@@ -1,13 +1,16 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
+
+const withNextIntl = createNextIntlPlugin("./src/app/i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  // Permite que el WebSocket de desarrollo acepte conexiones desde ngrok
+  allowedDevOrigins: [
+    "maladroitly-revertible-alysha.ngrok-free.dev",
+    "localhost:3000"
+  ],
   experimental: {
     authInterrupts: true,
-    // Permite que el WebSocket de desarrollo acepte conexiones desde ngrok
-    allowedDevOrigins: [
-      "maladroitly-revertible-alysha.ngrok-free.dev",
-      "localhost:3000"
-    ],
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -26,4 +29,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

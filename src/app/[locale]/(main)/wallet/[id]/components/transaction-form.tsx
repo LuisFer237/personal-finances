@@ -1,0 +1,239 @@
+"use client";
+
+import React from 'react';
+import { z } from 'zod';
+import { type SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useState } from 'react';
+
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { t } from "@/lib/i18n-extract";
+import CategoryForm from './category-form';
+import { Plus } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/animate-ui/components/radix/dialog';
+
+// 1. Definimos el esquema. 
+// Usamos .or(z.string()) para que acepte lo que viene del input antes de la coerción
+const TransactionFormSchema = z.object({
+    amount: z.union([z.number(), z.string()])
+        .transform((val) => Number(val))
+        .refine((val) => val > 0, { message: t("wallet.transaction.amountPositive", "The amount must be positive") }),
+    type: z.enum(["INCOME", "EXPENSE"]),
+    categoryId: z.string().min(1, t("common.required", "Required")),
+    description: z.string().optional().or(z.literal("")),
+    date: z.string(),
+});
+
+type TransactionFormInput = z.input<typeof TransactionFormSchema>;
+type TransactionFormData = z.output<typeof TransactionFormSchema>;
+
+interface TransactionWithCategory {
+    id: string;
+    amount: number;
+    type: "INCOME" | "EXPENSE";
+    description: string | null;
+    categoryId: string;
+    date: Date;
+    category: {
+        name: string;
+    }
+}
+
+interface TransactionFormProps {
+    walletId: string;
+    categories: { id: string; name: string; description: string | null }[];
+    onSuccess?: () => void;
+    initialType?: "INCOME" | "EXPENSE";
+    initialData?: TransactionWithCategory | null;
+}
+
+const TransactionForm = ({
+    walletId,
+    categories,
+    onSuccess,
+    initialType = "EXPENSE",
+    initialData = null
+}: TransactionFormProps) => {
+    const [localCategories, setLocalCategories] = useState(categories);
+    const [isCategoryDialogOpen, setIsCategoryDialogOpen] = useState(false);
+    const router = useRouter();
+    const isEditing = !!initialData;
+
+    // Input y output separados para soportar transformaciones de Zod (amount)
+    const form = useForm<TransactionFormInput, any, TransactionFormData>({
+        resolver: zodResolver(TransactionFormSchema),
+        defaultValues: {
+            amount: initialData?.amount || 0,
+            type: (initialData?.type as "INCOME" | "EXPENSE") || initialType,
+            description: initialData?.description || "",
+            categoryId: initialData?.categoryId || "",
+            date: initialData?.date ? new Date(initialData.date).toISOString() : new Date().toISOString(),
+        },
+    });
+
+    const selectedType = form.watch("type");
+    const displayCategories = localCategories;
+
+    const onSubmit: SubmitHandler<TransactionFormData> = async (data) => {
+        try {
+            const url = isEditing
+                ? `/api/transactions/${initialData?.id}`
+                : "/api/transactions";
+
+            const method = isEditing ? "PATCH" : "POST";
+
+            const response = await fetch(url, {
+                method: method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ ...data, walletId }),
+            });
+
+            if (!response.ok) throw new Error(t("wallet.transaction.failed", "Failed to create transaction"));
+
+            toast.success(isEditing ? t("wallet.transaction.updated", "Transaction updated!") : t("wallet.transaction.recorded", "Transaction recorded!"));
+            if (!isEditing) form.reset();
+            router.refresh();
+            if (onSuccess) onSuccess();
+        } catch (error: any) {
+            toast.error(error.message);
+        }
+    };
+
+    return (
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+
+                {/* Selector de Tipo */}
+                <div className="flex p-1 bg-muted rounded-md w-full">
+                    <Button
+                        type="button"
+                        variant={selectedType === "EXPENSE" ? "default" : "ghost"}
+                        className="flex-1 h-8 text-xs"
+                        onClick={() => form.setValue("type", "EXPENSE")}
+                    >
+                        {t("wallet.expense", "Expense")}
+                    </Button>
+                    <Button
+                        type="button"
+                        variant={selectedType === "INCOME" ? "default" : "ghost"}
+                        className="flex-1 h-8 text-xs"
+                        onClick={() => form.setValue("type", "INCOME")}
+                    >
+                        {t("wallet.income", "Income")}
+                    </Button>
+                </div>
+
+                {/* Monto */}
+                <FormField
+                    control={form.control}
+                    name="amount"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>{t("wallet.transaction.amount", "Amount")}</FormLabel>
+                            <FormControl>
+                                <Input type="number" step="0.01" placeholder={t("wallet.transaction.amountPlaceholder", "0.00")} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                {/* Categoría */}
+                <FormField
+                    control={form.control}
+                    name="categoryId"
+                    render={({ field }) => (
+                        <FormItem>
+                            <div className="flex items-center justify-between">
+                                <FormLabel>{t("wallet.transaction.category", "Category")}</FormLabel>
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-7 px-2 text-xs gap-1 text-white hover:bg-emerald-50 transition duration-300"
+                                    onClick={() => setIsCategoryDialogOpen(true)}
+                                >
+                                    <Plus className="h-3 w-3" />
+                                    {t("wallet.transaction.newCategory", "New Category")}
+                                </Button>
+                            </div>
+
+                            <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder={t("wallet.transaction.selectCategory", "Select a category")} />
+                                    </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                    {displayCategories.map((cat) => (
+                                        <SelectItem key={cat.id} value={cat.id}>
+                                            {cat.name}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <Dialog open={isCategoryDialogOpen} onOpenChange={setIsCategoryDialogOpen}>
+                    <DialogContent className="sm:max-w-[350px]">
+                        <DialogHeader>
+                            <DialogTitle>{t("wallet.category.create", "Create Category")}</DialogTitle>
+                        </DialogHeader>
+                        <CategoryForm
+                            onSuccess={(newCat) => {
+                                setLocalCategories(prev => [...prev, newCat]);
+                                form.setValue("categoryId", newCat.id);
+                                setIsCategoryDialogOpen(false);
+                            }}
+                        />
+                    </DialogContent>
+                </Dialog>
+
+                {/* Descripción */}
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>{t("wallet.transaction.descriptionOptional", "Description (Optional)")}</FormLabel>
+                            <FormControl>
+                                <Textarea placeholder={t("wallet.transaction.descriptionPlaceholder", "What was this for?")} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                <Button type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+                    {form.formState.isSubmitting
+                        ? t("common.saving", "Saving...")
+                        : (isEditing ? t("wallet.transaction.update", "Update Transaction") : t("wallet.transaction.save", "Save Transaction"))}
+                </Button>
+            </form>
+        </Form>
+    );
+};
+
+export default TransactionForm;
